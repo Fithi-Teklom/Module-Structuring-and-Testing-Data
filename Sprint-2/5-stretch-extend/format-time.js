@@ -1,14 +1,18 @@
 // This is the latest solution to the problem from the prep.
 // Make sure to do the prep before you do the coursework
 // Your task is to write tests for as many different groups of input data or edge cases as you can, and fix any bugs you find.
-
 function formatAs12HourClock(time) {
-  const hours = Number(time.slice(0, 2));
-  if (hours > 12) {
-    return `${hours - 12}:00 pm`;
-  }
-  return `${time} am`;
+  const [hh, mm] = time.split(":").map(Number);
+
+  let period = hh < 12 ? "am" : "pm";
+  let hour12 = hh % 12;
+  if (hour12 === 0) hour12 = 12;
+
+  return `${hour12.toString().padStart(2, "0")}:${mm
+    .toString()
+    .padStart(2, "0")} ${period}`;
 }
+
 
 const currentOutput = formatAs12HourClock("08:00");
 const targetOutput = "08:00 am";
